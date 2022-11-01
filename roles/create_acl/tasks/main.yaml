@@ -1,17 +1,43 @@
 ---
-- name: Create ACL JSON
-  template:
-    src: "acl_template.j2"
-    dest: "{{ generated_acl_location }}generated_acl.json"
+- name: Render platform specific commands (without connecting to the device)
+  cisco.iosxr.iosxr_acls:
+    config:
+    - afi: ipv4
+      acls:
+      - name: acl_2
+        aces:
+        - sequence: 11
+          grant: permit
+          protocol: igmp
+          source:
+            host: 198.51.100.130
+          destination:
+            any: true
+          ttl:
+            eq: 100
+
+        - sequence: 12
+          grant: deny
+          source:
+            any: true
+          destination:
+            any: true
+          protocol: icmp
+    state: rendered
+
+# - name: Create ACL JSON
+#   template:
+#     src: "acl_template.j2"
+#     dest: "{{ generated_acl_location }}generated_acl.json"
 
 
-- name: Display the JSON file content
-  shell: cat {{ generated_acl_location }}generated_acl.json
-  register: acl_result
+# - name: Display the JSON file content
+#   shell: cat {{ generated_acl_location }}generated_acl.json
+#   register: acl_result
 
-- name: save the Json data to a Variable as a Fact
-  set_fact:
-    jsondata: "{{ acl_result.stdout | from_json }}"
+# - name: save the Json data to a Variable as a Fact
+#   set_fact:
+#     jsondata: "{{ acl_result.stdout | from_json }}"
 
 # - name: print
 #   debug:

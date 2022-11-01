@@ -5,3 +5,4 @@ nmap
 netaddr
 pip install fastapi
 uvicorn main:app --reload
+ansible-galaxy collection install cisco.iosxr
