@@ -1,0 +1,16 @@
+
+PLAY [Gather facts] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+
+TASK [setup] *******************************************************************
+[0;32mok: [localhost][0m
+
+PLAY [Create prefix file for nmap] *********************************************
+
+TASK [gather_prefix : Save prefixes from IP inventory into file] ***************
+[0;31mfatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}[0m
+
+PLAY RECAP *********************************************************************
+[0;31mlocalhost[0m                  : [0;32mok=2   [0m changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   

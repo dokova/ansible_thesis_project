@@ -1,0 +1,9 @@
+---
+- name: Sending new prefix for inventory
+  ansible.builtin.uri:
+    url: "{{ prod_base_url }}{{ endpoint_url }}add/"
+    method: POST
+    return_content: yes
+    body_format: json
+    body: {"name" : "192.2.0.0/24"}
+    status_code: 200

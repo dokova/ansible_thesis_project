@@ -1,0 +1,20 @@
+
+PLAY [Gather facts] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+
+TASK [setup] *******************************************************************
+[0;32mok: [localhost][0m
+
+PLAY [Performing scan] *********************************************************
+
+TASK [scan : Create nmap working directory] ************************************
+[0;32mok: [localhost][0m
+
+TASK [scan : Copy prefix_list file to remote server] ***************************
+[0;31mAn exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option[0m
+[0;31mfatal: [localhost]: FAILED! => {"changed": false, "msg": "Could not find or access '/home/domty/loop_system/generated_data/prefix_for_nmap/2022-11-01.txt' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}[0m
+
+PLAY RECAP *********************************************************************
+[0;31mlocalhost[0m                  : [0;32mok=3   [0m changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   

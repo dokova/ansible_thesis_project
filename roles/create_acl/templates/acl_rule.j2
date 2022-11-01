@@ -1,0 +1,18 @@
+{% set count = namespace(value=10) %}
+
+{# Boggon Addresses + Inverse #}
+{% for item in jsondata.boggon_addresses %}
+{{ count.value }} {{ item.action }} ipv4 {{ item.from_host }} {{ item.from_wildcard }} {{ item.to_host }}
+{% set count.value = count.value + 10 %}
+{{ count.value }} {{ item.action }} ipv4 {{ item.to_host }} {{ item.from_host }} {{ item.from_wildcard }}
+{% set count.value = count.value + 10 %}
+{% endfor %}
+
+{# Core Addressess + Inverse #}
+
+{% for item in jsondata.ip_core_addresses %}
+{{ count.value }} {{ item.action }} ipv4 {{ item.from_host }} {{ item.from_wildcard }} {{ item.to_host}}
+{% set count.value = count.value + 10 %}
+{{ count.value }} {{ item.action }} ipv4 {{ item.to_host}} {{ item.from_host}} {{ item.from_wildcard }}
+{% set count.value = count.value + 10 %}
+{% endfor %}

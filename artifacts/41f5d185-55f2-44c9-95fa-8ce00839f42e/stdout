@@ -1,0 +1,16 @@
+
+PLAY [Gather facts] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[0;32mok: [localhost][0m
+
+TASK [setup] *******************************************************************
+[0;32mok: [localhost][0m
+
+PLAY [Performing scan] *********************************************************
+
+TASK [scan : Save prefixes from IP inventory into file] ************************
+[0;31mfatal: [localhost]: FAILED! => {"changed": false, "dest": "/home/domty/loop_system/generated_data/pulled_inventory/2022-11-01.json", "elapsed": 10, "msg": "Connection failure: timed out", "url": "http://127.0.0.1:8000/prefixes/"}[0m
+
+PLAY RECAP *********************************************************************
+[0;31mlocalhost[0m                  : [0;32mok=2   [0m changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   

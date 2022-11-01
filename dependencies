@@ -1,0 +1,7 @@
+ansible-galaxy collection install community.general
+ansible-galaxy collection list
+https://jmespath.org/
+nmap
+netaddr
+pip install fastapi
+uvicorn main:app --reload

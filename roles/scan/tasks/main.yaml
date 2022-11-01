@@ -1,0 +1,47 @@
+---
+# - name: Save prefixes from IP inventory into file
+#   ansible.builtin.get_url:
+#     url: "{{ prod_base_url }}{{ endpoint_url }}"
+#     dest: "{{ pulled_inventory_destination }}{{ ansible_date_time.date }}.json"
+#     mode: "0666"
+
+# - name: Load data
+#   slurp:
+#     src: "{{ pulled_inventory_destination }}{{ ansible_date_time.date }}.json"
+#   register: "prefix_json"
+
+
+# - name: Decode data and store as fact
+#   set_fact:
+#     prefix_json_content: "{{ prefix_json.content | b64decode }}"
+
+
+# - name: Register prefixes
+#   ansible.builtin.shell: "echo {{ item }}"
+#   loop: "{{ prefix_json_content.prefix }}"
+#   register: prefixes
+
+
+# - name: Create nmap inventory file
+#   template:
+#     src: "prefix_file.txt.j2"
+#     dest: "{{ nmap_inventory_destination }}prefix_list-{{ ansible_date_time.date }}.txt"
+
+- name: Create nmap working directory
+  file:
+    path: /etc/nmap_scan
+    state: directory
+    mode: '0644'
+
+- name: Copy prefix_list file to remote server
+  copy: 
+    src: "{{ nmap_inventory_destination }}{{ ansible_date_time.date }}.address"
+    dest: "/etc/nmap_scan/prefix_list-{{ ansible_date_time.date }}.address"
+
+- name: Install nmap
+  apt:
+    name: nmap
+
+# - name: Start scan
+#   ansible.builtin.shell: "{{ nmap_command }} /etc/nmap_scan/prefix_list-{{ ansible_date_time.date }}.txt"
+

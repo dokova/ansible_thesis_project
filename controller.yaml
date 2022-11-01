@@ -1,0 +1,29 @@
+---
+- name: Gather facts
+  hosts: localhost
+  tasks:
+    - setup:
+
+
+# - name: Performing scan
+#   hosts: localhost
+#   become: true
+#   gather_facts: no
+#   roles:
+#     - scan
+
+
+- name: Performing scan
+  hosts: localhost
+  become: true
+  gather_facts: no
+  roles:
+    - inventory_update
+
+# - name: Create ACL
+#   hosts: localhost
+#   become: true
+#   gather_facts: no
+#   roles:
+#     - create_acl
+

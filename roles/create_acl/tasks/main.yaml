@@ -1,0 +1,24 @@
+---
+- name: Create ACL JSON
+  template:
+    src: "acl_template.j2"
+    dest: "{{ generated_acl_location }}generated_acl.json"
+
+
+- name: Display the JSON file content
+  shell: cat {{ generated_acl_location }}generated_acl.json
+  register: acl_result
+
+- name: save the Json data to a Variable as a Fact
+  set_fact:
+    jsondata: "{{ acl_result.stdout | from_json }}"
+
+# - name: print
+#   debug:
+#     var: jsondata
+
+# - name: Generate actual ACL rules from JSON
+#   template:
+#     src: "acl_rule.j2"
+#     dest: "{{ generated_acl_location }}generated_rules.txt"
+
