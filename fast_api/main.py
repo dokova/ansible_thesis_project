@@ -76,7 +76,7 @@ async def post_prefix(prefix : Prefix, response: Response):
 
 @app.get("/scan/")
 async def scan():
-    create_nmap_inventory()
+    #create_nmap_inventory()
     r = ansible_runner.run(private_data_dir='/home/domty/ansible_thesis_project', playbook='controller.yaml', )
     print("{}: {}".format(r.status, r.rc))
     for each_host_event in r.events:

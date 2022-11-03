@@ -19,6 +19,18 @@
     jsondata: "{{ acl_result.stdout | from_json }}"
 
 
+# - name: Create master iACL config file from inventory
+#   template:
+#     src: acl_rule.j2
+#     dest: "{{ generated_acl_location }}acl_rule.cfg"
+
+
+# - name: load a config from disk and replace the current config
+#   cisco.iosxr.iosxr_config:
+#     src: "{{ generated_acl_location }}acl_rule.cfg"
+#     replace: line
+#     backup: yes
+
 - name: Configure iACL group on edge device
   cisco.ios.ios_command:
     commands:
@@ -30,46 +42,4 @@
       - "deny udp {{ item | split('/') | first }} {{ item | ipaddr('hostmask') }} any"
       - end
   loop: "{{ jsondata.prefix }}"
-    
-
-
-
-# - name: print
-#   debug:
-#     msg: deny tcp any {{ item.split("/")[0] }} {{ item | ipaddr('hostmask')}}
-#   loop: "{{ jsondata.prefix }}"
-#   vars:
-#     statement: "{{ lookup('vars', 'deny') }}"
-#   register: acl_rule
-
-# - name: Gather ACL interfaces facts using gathered state
-#   cisco.ios.ios_command:
-#     commands:
-#     - show ip access-lists iACL
-#   register: acl_output
-# - name: print
-#   debug:
-
-# - name: Create ACL JSON
-#   template:
-#     src: "acl_template.j2"
-#     dest: "{{ generated_acl_location }}generated_acl.json"
-
-
-# - name: Display the JSON file content
-#   shell: cat {{ generated_acl_location }}generated_acl.json
-#   register: acl_result
-
-# - name: save the Json data to a Variable as a Fact
-#   set_fact:
-#     jsondata: "{{ acl_result.stdout | from_json }}"
-
-# - name: print
-#   debug:
-#     var: jsondata
-
-# - name: Generate actual ACL rules from JSON
-#   template:
-#     src: "acl_rule.j2"
-#     dest: "{{ generated_acl_location }}generated_rules.txt"
 

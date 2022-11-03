@@ -1,16 +1,16 @@
 ---
-# - name: Gather facts
-#   hosts: localhost
-#   tasks:
-#     - setup:
+- name: Gather facts
+  hosts: localhost
+  tasks:
+    - setup:
 
 
-# - name: Performing scan
-#   hosts: localhost
-#   become: true
-#   gather_facts: no
-#   roles:
-#     - scan
+- name: Performing scan
+  hosts: localhost
+  become: true
+  gather_facts: no
+  roles:
+    - scan
 
 
 # - name: Inventory update
@@ -21,9 +21,9 @@
 #     - inventory_update
 
 
-- name: Create ACL
-  hosts: edge_devices
-  gather_facts: false
-  roles:
-    - create_acl
+# - name: Create ACL
+#   hosts: edge_devices
+#   gather_facts: false
+#   roles:
+#     - create_acl
 

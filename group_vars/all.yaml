@@ -4,6 +4,7 @@ endpoint_url: "prefixes/"
 
 generated_acl_location: "/home/domty/ansible_thesis_project/generated_data/acls/"
 nmap_inventory_destination: "/home/domty/ansible_thesis_project/generated_data/prefix_for_nmap/"
+prefix_location:  "/home/domty/ansible_thesis_project/generated_data/prefixes/"
 
 
 ## Passwords
