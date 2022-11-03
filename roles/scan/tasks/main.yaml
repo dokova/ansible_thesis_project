@@ -31,17 +31,18 @@
   file:
     path: /etc/nmap_scan
     state: directory
-    mode: '0644'
+    mode: '0666'
 
 - name: Copy prefix_list file to remote server
   copy: 
     src: "{{ nmap_inventory_destination }}{{ ansible_date_time.date }}.address"
-    dest: "/etc/nmap_scan/prefix_list-{{ ansible_date_time.date }}.address"
+    dest: "/etc/nmap_scan/{{ ansible_date_time.date }}.address"
+    mode: "0666"
 
 - name: Install nmap
   apt:
     name: nmap
 
 # - name: Start scan
-#   ansible.builtin.shell: "{{ nmap_command }} /etc/nmap_scan/prefix_list-{{ ansible_date_time.date }}.txt"
+#   ansible.builtin.shell: "{{ nmap_command }} /etc/nmap_scan/{{ ansible_date_time.date }}.address"
 

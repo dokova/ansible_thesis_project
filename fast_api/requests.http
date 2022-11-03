@@ -5,5 +5,5 @@ POST http://127.0.0.1:8000/prefixes/add/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "192.2.0.0/12"
+    "name": "192.100.0.0/24"
 }

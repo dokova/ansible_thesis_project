@@ -1,29 +1,54 @@
 ---
-- name: Render platform specific commands (without connecting to the device)
-  cisco.iosxr.iosxr_acls:
-    config:
-    - afi: ipv4
-      acls:
-      - name: acl_2
-        aces:
-        - sequence: 11
-          grant: permit
-          protocol: igmp
-          source:
-            host: 198.51.100.130
-          destination:
-            any: true
-          ttl:
-            eq: 100
+- name: Get inventory content
+  ansible.builtin.get_url:
+    url: "{{ prod_base_url }}{{ endpoint_url }}"
+    dest: "{{ generated_acl_location }}inventory_acls.json"
+  register: acl_content
 
-        - sequence: 12
-          grant: deny
-          source:
-            any: true
-          destination:
-            any: true
-          protocol: icmp
-    state: rendered
+- name: print if changed
+  debug:
+    msg: "valtozott"
+  when: acl_content.changed
+  
+- name: Display the JSON file content
+  shell: cat {{ generated_acl_location }}inventory_acls.json
+  register: acl_result
+
+- name: save the Json data to a Variable as a Fact
+  set_fact:
+    jsondata: "{{ acl_result.stdout | from_json }}"
+
+
+- name: Configure iACL group on edge device
+  cisco.ios.ios_command:
+    commands:
+      - configure terminal
+      - ip access-list extended iACL
+      - "deny tcp any {{ item | split('/') | first }} {{ item | ipaddr('hostmask') }}" ## nem fogja felvenni újra ha már létezik
+      - "deny udp any {{ item | split('/') | first }} {{ item | ipaddr('hostmask') }}"
+      - "deny tcp {{ item | split('/') | first }} {{ item | ipaddr('hostmask') }} any"
+      - "deny udp {{ item | split('/') | first }} {{ item | ipaddr('hostmask') }} any"
+      - end
+  loop: "{{ jsondata.prefix }}"
+    
+
+
+
+# - name: print
+#   debug:
+#     msg: deny tcp any {{ item.split("/")[0] }} {{ item | ipaddr('hostmask')}}
+#   loop: "{{ jsondata.prefix }}"
+#   vars:
+#     statement: "{{ lookup('vars', 'deny') }}"
+#   register: acl_rule
+
+# - name: Gather ACL interfaces facts using gathered state
+#   cisco.ios.ios_command:
+#     commands:
+#     - show ip access-lists iACL
+#   register: acl_output
+# - name: print
+#   debug:
 
 # - name: Create ACL JSON
 #   template:

@@ -1,1 +1,11 @@
-localhost ansible_connection=local
+[edge_devices]
+edge ansible_host=192.168.16.1
+[edge_devices:vars]
+ansible_become=yes
+ansible_become_method=enable
+ansible_network_os=cisco.ios.ios
+ansible_connection=ansible.netcommon.network_cli
+ansible_user=cisco
+ansible_password=cisco
+ansible_become_user=cisco
+ansible_become_pass=cisco

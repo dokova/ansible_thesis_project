@@ -7,8 +7,8 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-PREFIX_FILE = r"/home/domty/loop_system/generated_data/prefixes/prefix.json"
-NMAP_INVENTORY_FILE = f"/home/domty/loop_system/generated_data/prefix_for_nmap/{date.today()}.address"
+PREFIX_FILE = r"/home/domty/ansible_thesis_project/generated_data/prefixes/prefix.json"
+NMAP_INVENTORY_FILE = f"/home/domty/ansible_thesis_project/generated_data/prefix_for_nmap/{date.today()}.address"
 
 
 
@@ -77,7 +77,7 @@ async def post_prefix(prefix : Prefix, response: Response):
 @app.get("/scan/")
 async def scan():
     create_nmap_inventory()
-    r = ansible_runner.run(private_data_dir='/home/domty/loop_system', playbook='controller.yaml', )
+    r = ansible_runner.run(private_data_dir='/home/domty/ansible_thesis_project', playbook='controller.yaml', )
     print("{}: {}".format(r.status, r.rc))
     for each_host_event in r.events:
         print(each_host_event['event'])

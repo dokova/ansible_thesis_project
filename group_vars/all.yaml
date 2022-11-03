@@ -2,12 +2,14 @@
 prod_base_url: "http://127.0.0.1:8000/"
 endpoint_url: "prefixes/"
 
-generated_acl_location: "/home/domty/loop_system/generated_data/acls/"
-nmap_inventory_destination: "/home/domty/loop_system/generated_data/prefix_for_nmap/"
+generated_acl_location: "/home/domty/ansible_thesis_project/generated_data/acls/"
+nmap_inventory_destination: "/home/domty/ansible_thesis_project/generated_data/prefix_for_nmap/"
 
 
 ## Passwords
-nmap_command: "nmap -sV -O -p- –oX /tmp/nmap_result -iL"
+
+nmap_command: "nmap –oX /etc/nmap_scan/scan_result -iL"
+#nmap_command: "nmap -sV -O -p- –oX /tmp/nmap_result -iL"
 prod_access_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           61356231613964343366373764623838663137363233663633666636366131303564363434663761

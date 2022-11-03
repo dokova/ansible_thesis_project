@@ -13,7 +13,7 @@
 #     - scan
 
 
-# - name: Performing scan
+# - name: Inventory update
 #   hosts: localhost
 #   become: true
 #   gather_facts: no
@@ -22,9 +22,8 @@
 
 
 - name: Create ACL
-  hosts: localhost
-  become: true
-  gather_facts: no
+  hosts: edge_devices
+  gather_facts: false
   roles:
     - create_acl
 
