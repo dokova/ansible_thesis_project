@@ -1,33 +1,16 @@
 
-prod_base_url: "http://127.0.0.1:8000/"
-endpoint_url: "prefixes/"
+prod_base_url: "http://127.0.0.1:8000"
+#endpoint_url: "prefixes/"
 
-generated_acl_location: "/home/domty/ansible_thesis_project/generated_data/acls/"
-nmap_inventory_destination: "/home/domty/ansible_thesis_project/generated_data/prefix_for_nmap/"
-prefix_location:  "/home/domty/ansible_thesis_project/generated_data/prefixes/"
+generated_acl_location: "/home/domty/ansible_thesis_project/generated_data/acls"
+nmap_inventory_location: "/home/domty/ansible_thesis_project/generated_data/prefix_for_nmap"
+pulled_inventory_location:  "/home/domty/ansible_thesis_project/generated_data/pulled_inventory"
 
 
 ## Passwords
 
-nmap_command: "nmap –oX /etc/nmap_scan/scan_result -iL"
-#nmap_command: "nmap -sV -O -p- –oX /tmp/nmap_result -iL"
-prod_access_token: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          61356231613964343366373764623838663137363233663633666636366131303564363434663761
-          3462396232623033353532346536633762333063393761610a336131333032666563613430363439
-          30656161656437373262353662623461646564323338313031663837626231336261326235623937
-          6330633739653038300a353732666631613461353937353035366430383164383563616237343635
-          38626639376630313739636639373065643463343836613162653830653133666539613031663436
-          3939633435386439353561333666616263616634313764623532
+nmap_command: "nmap –oX /etc/nmap_scan/ -iL"
 
-dev_access_token: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          65663865633364653765613638353636306233636339346131363234373263623932616139333562
-          3361316532643137363734643063393932363433653534340a323739663930313136393664633266
-          39633239346466383234333664393662623532663135393135336163373431636331356161313232
-          3866386466336464380a656165323866636139636233656165653434306538396161386165626665
-          34356634643335656538653233623733313132616137333365353134386136316261383261396262
-          3339306335353538613739313136343230323532373734313939
 
 
 ansible_sudo_pass: !vault |
@@ -37,9 +20,3 @@ ansible_sudo_pass: !vault |
           38643833393964343562306565386266616666336533383732376365333234383932616337376161
           6433333261626434310a383963366661326533626635366337623337303334626233376533613365
           3039
-
-# prod_base_url: "https://prod-auss-nsxt.paas.telekom.hu/ipinv/api/"
-# dev_base_url: "https://dev1-auss-nsxt.paas.telekom.hu/ipinv/api/"
-# prod_endpoint_url: "ipam/prefixes/?status=Active&category__name={{ category }}"
-# category: "IP%20infrastructure"
-# pulled_inventory_destination: "/home/domty/loop_system/generated_data/pulled_inventory/"

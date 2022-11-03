@@ -1,6 +1,7 @@
 ---
 - name: Gather facts
   hosts: localhost
+  gather_facts: no
   tasks:
     - setup:
 
@@ -23,7 +24,7 @@
 
 # - name: Create ACL
 #   hosts: edge_devices
-#   gather_facts: false
+#   gather_facts: no
 #   roles:
 #     - create_acl
 

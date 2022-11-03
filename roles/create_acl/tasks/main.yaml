@@ -1,8 +1,8 @@
 ---
 - name: Get inventory content
   ansible.builtin.get_url:
-    url: "{{ prod_base_url }}{{ endpoint_url }}"
-    dest: "{{ generated_acl_location }}inventory_acls.json"
+    url: "{{ prod_base_url }}/prefixes"
+    dest: "{{ pulled_inventory_location }}/inventory_acls.json"
   register: acl_content
 
 - name: print if changed
@@ -11,25 +11,17 @@
   when: acl_content.changed
   
 - name: Display the JSON file content
-  shell: cat {{ generated_acl_location }}inventory_acls.json
+  shell: cat {{ pulled_inventory_location }}/inventory_acls.json
   register: acl_result
 
 - name: save the Json data to a Variable as a Fact
   set_fact:
     jsondata: "{{ acl_result.stdout | from_json }}"
 
-
-# - name: Create master iACL config file from inventory
-#   template:
-#     src: acl_rule.j2
-#     dest: "{{ generated_acl_location }}acl_rule.cfg"
-
-
-# - name: load a config from disk and replace the current config
-#   cisco.iosxr.iosxr_config:
-#     src: "{{ generated_acl_location }}acl_rule.cfg"
-#     replace: line
-#     backup: yes
+- name: Create master iACL config file from inventory
+  template:
+    src: acl_rule.j2
+    dest: "{{ generated_acl_location }}/acl_rule.cfg"
 
 - name: Configure iACL group on edge device
   cisco.ios.ios_command:
