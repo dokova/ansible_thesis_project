@@ -1,0 +1,8 @@
+{#{% set count = namespace(value=10) %}{{ count.value }}{% set count.value = count.value + 10 %}#}
+{# {% if hostvars.localhost.removed_prefix is defined%}no {% endif %} #}
+{% for prefix in hostvars.localhost.jsondata.prefix %}
+deny tcp any {{ prefix | split('/') | first }} {{ prefix | ipaddr('hostmask') }}
+deny tcp {{ prefix | split('/') | first }} {{ prefix | ipaddr('hostmask') }} any
+{% endfor %}
+
+

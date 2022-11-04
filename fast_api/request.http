@@ -1,0 +1,9 @@
+# GET http://127.0.0.1:8000/prefixes/ HTTP/1.1
+
+
+POST http://127.0.0.1:8000/prefixes/add/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "192.100.0.0/24"
+}

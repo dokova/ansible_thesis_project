@@ -4,6 +4,55 @@
   gather_facts: no
   tasks:
     - setup:
+  tags:
+    - i
+    - acl
+    - scan
+    - add
+    - remove
+
+
+- name: Remove item from inventory
+  hosts: localhost
+  become: true
+  gather_facts: no
+  roles:
+    - inventory_update/remove
+  tags:
+    - remove
+
+- name: Add item to inventory
+  hosts: localhost
+  become: true
+  gather_facts: no
+  roles:
+    - inventory_update/add
+  tags:
+    - add
+
+
+- name: Gather prefixes
+  hosts: localhost
+  become: true
+  gather_facts: no
+  roles:
+    - get_prefixes
+  tags:
+    - acl
+    - scan
+    - add
+    - remove
+
+
+- name: Modify ACL
+  hosts: edge_devices
+  gather_facts: no
+  roles:
+    - acls/modify_acl
+  tags:
+    - acl
+    - add
+    - remove
 
 
 - name: Performing scan
@@ -12,19 +61,10 @@
   gather_facts: no
   roles:
     - scan
+  tags:
+    - scan
+    - add
+    - remove
 
 
-# - name: Inventory update
-#   hosts: localhost
-#   become: true
-#   gather_facts: no
-#   roles:
-#     - inventory_update
-
-
-# - name: Create ACL
-#   hosts: edge_devices
-#   gather_facts: no
-#   roles:
-#     - create_acl
 

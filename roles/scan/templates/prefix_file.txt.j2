@@ -1,5 +1,4 @@
-{% for prefix in prefixes.results %}
-{{ prefix.stdout }}
+{% for prefix in jsondata.prefix %}
+{{ prefix }}
 {% endfor %}
-
 {# {{ jsondata.results | community.general.json_query('[*].prefix')}} #}

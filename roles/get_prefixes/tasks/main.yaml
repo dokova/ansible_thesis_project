@@ -1,0 +1,14 @@
+---
+- name: Get inventory content
+  ansible.builtin.get_url:
+    url: "{{ prod_base_url }}/prefixes"
+    dest: "{{ pulled_inventory_location }}/inventory_acls.json"
+  register: acl_content
+
+- name: Set as fact
+  set_fact:
+    jsondata: "{{lookup('ansible.builtin.file', '{{ pulled_inventory_location }}/inventory_acls.json') }}"
+  #when: acl_content.changed
+
+- ansible.builtin.debug:
+    msg: "{{ jsondata }}"
