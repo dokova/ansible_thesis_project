@@ -15,5 +15,9 @@
   hosts: localhost
   gather_facts: no
   roles:
-    - compare_files
+    - role: roles/compare_files
+      #when: "{{ files_equal }}" != True
+  
+
+
 

@@ -16,7 +16,7 @@
   set_fact:
     mf2sha1: "{{ original_acl.stat.checksum }}"
 
-- name: Config files not equal
-  debug:
-    msg: "File Compare"
-  #failed_when:  mf2sha1 != mf1sha1
+- name: Config files equal
+  set_fact:
+    files_equal: "True"
+  when:  mf2sha1 == mf1sha1

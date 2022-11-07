@@ -3,36 +3,30 @@
   template:
     src: "prefix_file.txt.j2"
     dest: "{{ nmap_inventory_location }}/{{ ansible_date_time.date }}.address"
-  when: acl_content.changed
 
 - name: Create nmap working directory
   file:
     path: /etc/nmap_scan
     state: directory
     mode: '0755'
-  when: acl_content.changed
 
 - name: Copy prefix_list file to remote server
   copy: 
     src: "{{ nmap_inventory_location }}/{{ ansible_date_time.date }}.address"
     dest: "/etc/nmap_scan/{{ ansible_date_time.date }}.address"
     mode: "0755"
-  when: acl_content.changed
 
 - name: Install nmap
   apt:
     name: nmap
-  when: acl_content.changed
 
 - name: Start scan
   ansible.builtin.shell: "nmap -oX /etc/nmap_scan/scan-{{ ansible_date_time.date }}.xls -iL {{ nmap_inventory_location}}/{{ ansible_date_time.date }}.address"
-  when: acl_content.changed
 
 - name: Wait till xls file is created, so scan is completed
   ansible.builtin.wait_for:
     path: /etc/nmap_scan/scan-{{ ansible_date_time.date }}.xls
     search_regex: </nmaprun>
-  when: acl_content.changed
 
 # - name:
 #   debug:

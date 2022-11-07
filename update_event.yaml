@@ -26,7 +26,7 @@
   become: true
   gather_facts: no
   roles:
-    - inventory_update/add
+    - role: roles/inventory_update/add
   tags:
     - add
 
@@ -36,7 +36,7 @@
   become: true
   gather_facts: no
   roles:
-    - get_prefixes
+    - role: roles/get_prefixes
   tags:
     - acl
     - scan
@@ -48,7 +48,8 @@
   hosts: edge_devices
   gather_facts: no
   roles:
-    - acls/modify_acl
+    - role: acls/modify_acl
+      when: hostvars.localhost.acl_content.changed
   tags:
     - acl
     - add
@@ -60,7 +61,8 @@
   become: true
   gather_facts: no
   roles:
-    - scan
+    - role: scan
+      when: hostvars.localhost.acl_content.changed
   tags:
     - scan
     - add

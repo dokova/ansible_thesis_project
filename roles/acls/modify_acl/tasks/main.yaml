@@ -3,7 +3,6 @@
   template:
     src: acl_rule.j2
     dest: "{{ generated_acl_location }}/acl_rule.cfg"
-  when: hostvars.localhost.acl_content.changed
 
 - name: Configure iACL group on edge device
   cisco.ios.ios_command:
@@ -16,9 +15,7 @@
       - "deny udp {{ item | split('/') | first }} {{ item | ipaddr('hostmask') }} any"
       - end
   loop: "{{ hostvars.localhost.jsondata.prefix }}"
-  when: hostvars.localhost.acl_content.changed
 
 - name: save running to startup when modified
   cisco.ios.ios_config:
     save_when: always
-  when: hostvars.localhost.acl_content.changed
