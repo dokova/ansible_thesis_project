@@ -4,5 +4,3 @@
 deny tcp any {{ prefix | split('/') | first }} {{ prefix | ipaddr('hostmask') }}
 deny tcp {{ prefix | split('/') | first }} {{ prefix | ipaddr('hostmask') }} any
 {% endfor %}
-
-

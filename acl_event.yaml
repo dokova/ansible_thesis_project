@@ -1,0 +1,19 @@
+---
+- name: Gather facts
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - setup:
+
+- name: Get ACLS
+  hosts: edge_devices
+  gather_facts: no
+  roles:
+    - acls/get_acl
+
+- name: Gather facts
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - compare_files
+

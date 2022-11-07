@@ -1,0 +1,22 @@
+---
+- name: print hostmask
+  debug:
+  #{{ lookup('wildcard_mask', '255.255.255.224') }}
+    msg: "{{ lookup('wildcard_mask', '192.168.1.0/0.0.0.255') }}"
+
+# - name: Get ACLS from device
+#   cisco.ios.ios_command:
+#     commands:
+#       - show ip access-lists iACL
+#   register: acl_in_device
+
+# - name: Print
+#   debug:
+#     msg: "{{ acl_in_device }}"
+
+# - name: make template
+#   template:
+#     src: pulled_acls.j2
+#     dest: "{{ generated_acl_location }}/pulled_acls.cfg"
+
+

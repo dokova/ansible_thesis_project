@@ -12,14 +12,14 @@
     - remove
 
 
-- name: Remove item from inventory
-  hosts: localhost
-  become: true
-  gather_facts: no
-  roles:
-    - inventory_update/remove
-  tags:
-    - remove
+# - name: Remove item from inventory
+#   hosts: localhost
+#   become: true
+#   gather_facts: no
+#   roles:
+#     - inventory_update/remove
+#   tags:
+#     - remove
 
 - name: Add item to inventory
   hosts: localhost

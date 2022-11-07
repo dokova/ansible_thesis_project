@@ -1,0 +1,5 @@
+{% for line in acl_in_device.stdout_lines[0] %}
+{% if line | regex_search("[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+") %}
+{{ line | replace("    ", "")}}
+{% endif %}
+{% endfor %}

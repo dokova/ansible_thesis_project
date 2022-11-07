@@ -1,0 +1,22 @@
+- name: Checksum of first file
+  stat:
+    path : "{{ generated_acl_location }}/pulled_acls.cfg"
+  register: pulled_acl
+
+- name: Current SHA1
+  set_fact:
+    mf1sha1: "{{ pulled_acl.stat.checksum }}"
+
+- name: Get cksum of my Second File (If needed you can jump this)
+  stat:
+    path : "{{ generated_acl_location }}/acl_rule.cfg"
+  register: original_acl
+
+- name: Current SHA1
+  set_fact:
+    mf2sha1: "{{ original_acl.stat.checksum }}"
+
+- name: Config files not equal
+  debug:
+    msg: "File Compare"
+  #failed_when:  mf2sha1 != mf1sha1
